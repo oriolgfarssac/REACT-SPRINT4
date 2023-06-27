@@ -1,34 +1,96 @@
+
 // Exercise 1: Get the array of all directors.
+
 function getAllDirectors(array) {
-  let result =  ???;
-  console.log("EXERCICE 1 ->", result);
-  return result;
+
+  const rstDirectors = array.map(llista => llista.director);
+
+  return rstDirectors;
+
 }
 
 // Exercise 2: Get the films of a certain director
+
 function getMoviesFromDirector(array, director) {
- 
+
+ const rstDirectorFilms = array.filter(llista => llista.director === director);
+
+ return rstDirectorFilms;
+
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
-  
+
+  const directorFilms = array.filter(llista => llista.director === director);
+
+  const rstPunctuation = directorFilms.reduce((accumulator, currentValue) => accumulator + currentValue.score, 0);
+
+  const rstAverage = parseFloat((rstPunctuation / directorFilms.length).toFixed(2));
+
+  return rstAverage;
+
 }
+
 
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(array) {
-  
+
+  const copy = [...array];
+
+  const order = copy.sort((a, b) => a.title.localeCompare(b.title));
+
+  const length = order.slice(0, 20);
+
+  if (length.length > 20) {
+    return array;
+  }
+
+  const result = length.map(movie => movie.title);
+
+  return result;
 }
 
 // Exercise 5: Order by year, ascending
-function orderByYear() {
+function orderByYear(array) {
 
+  const rstCopy = [...array];
+
+  const rstOrder = rstCopy.sort((a, b) => {
+    if (a.year === b.year) {
+      return a.title.localeCompare(b.title);
+    } else {
+      return a.year - b.year;
+    }
+  });
+
+  return rstOrder;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
+function moviesAverageByCategory(array, genre) {
 
+  const copy = [...array]
+
+  const genreFilms = copy.filter(llista => llista.genre === genre);
+
+  const rstPunctuation = genreFilms.reduce((accumulator, currentValue) => {
+    if (currentValue.score !== undefined) {
+      return accumulator + currentValue.score;
+    }
+    return accumulator;
+  }, 0);
+
+  if (genreFilms.length === 0) {
+    return 0;
+  }
+
+  const rstAverage = parseFloat((rstPunctuation / genreFilms.length).toFixed(2));
+
+  return rstAverage;
 }
+
+
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes() {
