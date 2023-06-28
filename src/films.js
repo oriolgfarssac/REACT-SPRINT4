@@ -1,41 +1,39 @@
-
 // Exercise 1: Get the array of all directors.
 
 function getAllDirectors(array) {
-
-  const rstDirectors = array.map(llista => llista.director);
+  const rstDirectors = array.map((llista) => llista.director);
 
   return rstDirectors;
-
 }
 
 // Exercise 2: Get the films of a certain director
 
 function getMoviesFromDirector(array, director) {
+  const rstDirectorFilms = array.filter(
+    (llista) => llista.director === director
+  );
 
- const rstDirectorFilms = array.filter(llista => llista.director === director);
-
- return rstDirectorFilms;
-
+  return rstDirectorFilms;
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
+  const directorFilms = array.filter((llista) => llista.director === director);
 
-  const directorFilms = array.filter(llista => llista.director === director);
+  const rstPunctuation = directorFilms.reduce(
+    (accumulator, currentValue) => accumulator + currentValue.score,
+    0
+  );
 
-  const rstPunctuation = directorFilms.reduce((accumulator, currentValue) => accumulator + currentValue.score, 0);
-
-  const rstAverage = parseFloat((rstPunctuation / directorFilms.length).toFixed(2));
+  const rstAverage = parseFloat(
+    (rstPunctuation / directorFilms.length).toFixed(2)
+  );
 
   return rstAverage;
-
 }
 
-
-// Exercise 4:  Alphabetic order by title 
+// Exercise 4:  Alphabetic order by title
 function orderAlphabetically(array) {
-
   const copy = [...array];
 
   const order = copy.sort((a, b) => a.title.localeCompare(b.title));
@@ -46,14 +44,13 @@ function orderAlphabetically(array) {
     return array;
   }
 
-  const result = length.map(movie => movie.title);
+  const result = length.map((movie) => movie.title);
 
   return result;
 }
 
 // Exercise 5: Order by year, ascending
 function orderByYear(array) {
-
   const rstCopy = [...array];
 
   const rstOrder = rstCopy.sort((a, b) => {
@@ -69,40 +66,30 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
+  let moviesCopy = [...array];
 
-  const copy = [...array]
-
-  const genreFilms = copy.filter(llista => llista.genre === genre);
-
-  const rstPunctuation = genreFilms.reduce((accumulator, currentValue) => {
-    if (currentValue.score !== undefined) {
-      return accumulator + currentValue.score;
+  const rstFilter = (moviesCopy = array.filter((movie) => {
+    if (typeof movie.score !== 'number');
+    else {
+      return movie.genre.includes(genre);
     }
-    return accumulator;
-  }, 0);
+  }));
 
-  if (genreFilms.length === 0) {
-    return 0;
-  }
+  const rstScore = rstFilter.reduce(
+    (accumulator, movie) => accumulator + movie.score,
+    0
+  );
 
-  const rstAverage = parseFloat((rstPunctuation / genreFilms.length).toFixed(2));
+  const rstAverage = Number((rstScore / moviesCopy.length).toFixed(2));
 
   return rstAverage;
 }
 
-
-
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
-
-}
+function hoursToMinutes() {}
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
-  
-}
-
-
+function bestFilmOfYear() {}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
@@ -115,6 +102,6 @@ if (typeof module !== 'undefined') {
     orderByYear,
     moviesAverageByCategory,
     hoursToMinutes,
-    bestFilmOfYear,
+    bestFilmOfYear
   };
 }
