@@ -70,22 +70,21 @@ function orderByYear(array) {
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
 
-  const copy = [...array]
+  let moviesCopy = [...array];
 
-  const genreFilms = copy.filter(llista => llista.genre === genre);
+  const rstFilter = moviesCopy = array.filter(movie => {
 
-  const rstPunctuation = genreFilms.reduce((accumulator, currentValue) => {
-    if (currentValue.score !== undefined) {
-      return accumulator + currentValue.score;
+    if (typeof (movie.score) !== 'number');
+
+    else {
+      return movie.genre.includes(genre);
     }
-    return accumulator;
-  }, 0);
 
-  if (genreFilms.length === 0) {
-    return 0;
-  }
+  });
 
-  const rstAverage = parseFloat((rstPunctuation / genreFilms.length).toFixed(2));
+  const rstScore = rstFilter.reduce((accumulator, movie) => accumulator + movie.score, 0);
+
+  const rstAverage = Number((rstScore / moviesCopy.length).toFixed(2));
 
   return rstAverage;
 }
@@ -93,9 +92,28 @@ function moviesAverageByCategory(array, genre) {
 
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
+function hoursToMinutes(array) {
 
+    const copy = array.map(movie => {
+
+    const movieCopy = { ...movie };
+
+    const durationMatch = movieCopy.duration.match(/(\d+)\s*(h|hour|hours)?\s*(\d*)\s*(min|minute|minutes)?/i);
+
+    if (durationMatch) {
+      const hours = parseInt(durationMatch[1], 10) || 0;
+      const minutes = parseInt(durationMatch[3], 10) || 0;
+      const totalMinutes = hours * 60 + minutes;
+
+      movieCopy.duration = totalMinutes;
+    }
+
+    return movieCopy;
+  });
+  
+  return copy;
 }
+
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {
